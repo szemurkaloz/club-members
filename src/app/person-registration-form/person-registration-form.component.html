@@ -1,0 +1,25 @@
+<div style="text-align:center">
+  <h1>Új tag felvétele!</h1>
+</div>
+<!--[stepForm]="personDefault"-->
+<div id="registration" class="conatiner col-md-12">
+    <mat-vertical-stepper linear #stepper>
+      <mat-step [stepControl]="personConnection">
+        <ng-template matStepLabel>Elérési lehetőségek</ng-template>
+        <person-connection [stepForm]="personConnection"></person-connection>
+      </mat-step>
+      <mat-step [stepControl]="personDefault">
+        <ng-template matStepLabel>személyi adatok</ng-template>
+        <personal-default-step [stepForm]="personDefault"></personal-default-step>
+      </mat-step>
+      <mat-step [stepControl]="personLocation">
+        <ng-template matStepLabel>Lakóhely adatok</ng-template>
+        <person-location-step [stepForm]="personLocation"></person-location-step>
+      </mat-step>
+
+      <mat-step [stepControl]="personRegistation">
+        <ng-template matStepLabel>Felvétel megerősítése</ng-template>
+        <!--app-registration-step3 [regForm]="registrationMemberForm"></app-registration-step3-->
+      </mat-step>
+    </mat-vertical-stepper>
+</div>

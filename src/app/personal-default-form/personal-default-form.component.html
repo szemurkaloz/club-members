@@ -1,0 +1,49 @@
+<!--personDefault fxLayout.sm="column"-->
+<Form id="person-default" [formGroup]="stepForm">
+  <div fxLayout="row wrap"
+  fxLayout.xs="column"
+  fxLayoutGap="6px"
+  fxFlexFill
+  fxLayoutAlign="space-evenly start">
+
+<!--name required-->
+  <mat-form-field >
+    <mat-label>Neve:</mat-label>
+    <input matInput placeholder="jelentkező neve" formControlName="name" >
+    <!--mat-error *ngIf="personDefaultFormGroup.controls.name.touched && personDefaultFormGroup.controls.name.invalid">
+          <span *ngIf="personDefaultFormGroup.controls.name.errors?.required">Név megadása kötelező.</span>
+          <mat-error *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
+      <span *ngIf="loginForm.controls.email.errors.required">Név megadása kötelező.</span>
+      <span *ngIf="loginForm.controls.email.errors.pattern">This field is invalid.</span>
+        </mat-error-->
+  </mat-form-field>
+  <!--birthPlace required-->
+  <mat-form-field class="example-full-width">
+    <mat-label>Születés helye:</mat-label>
+    <input matInput placeholder="Hol született" formControlName="birthPlace" >
+  </mat-form-field>
+    <!--birthDate -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Születés dátuma:</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="birthDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <!--matherName-->
+    <mat-form-field class="example-full-width" >
+      <mat-label>Anyja neve:</mat-label>
+      <input matInput placeholder="Anya neve" formControlName="matherName">
+    </mat-form-field>
+    <!--job-->
+  <mat-form-field class="example-full-width" >
+    <mat-label>Foglalkozása:</mat-label>
+    <input matInput placeholder="munkája" formControlName="job">
+  </mat-form-field>
+</div>
+<br />
+    <button mat-raised-button color="primary" matStepperNext>Következő</button>
+</Form>
+<!--AutofillMonitor-->
+<!-- https://material.angular.io/cdk/text-field/overview -->
+<!--loginform-->
+<!--https://medium.com/@vivek0208/create-form-using-angular-material-f2472dab1687-->
