@@ -1,6 +1,8 @@
 import { CdkStepper, STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { Component, forwardRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, forwardRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
+import { contentAndNumberValidator } from '../core/custom-field-validators';
 //import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 /*
@@ -19,9 +21,10 @@ https://www.digitalocean.com/community/tutorials/angular-custom-form-control
 })
 export class PersonRegistrationFormComponent implements OnInit{
 
-  @ViewChild('stepper')
-  stepper: CdkStepper | undefined;
+  //stepper: CdkStepper | undefined;
+  //stepper: CdkStepper | undefined;
 
+  //@ViewChild('stepper') matVerticalStepper!: ElementRef;
 
   personDefault!: FormGroup;
   personLocation!: FormGroup;
@@ -30,7 +33,7 @@ export class PersonRegistrationFormComponent implements OnInit{
 
 
   constructor(private fb: FormBuilder) {
-      this.personDefault = fb.group({
+    this.personDefault = fb.group({
         name: new FormControl(null, Validators.required),
         birthPlace: new FormControl(null),
         birthDate: new FormControl(new Date()),
@@ -47,7 +50,7 @@ export class PersonRegistrationFormComponent implements OnInit{
       phones: this.fb.array([ this.fb.group({
         comment: new FormControl(null),
         number: new FormControl(null)
-      })
+      }, { validators: contentAndNumberValidator })
       ])
     });
     this.personRegistation = fb.group({});
@@ -59,5 +62,9 @@ export class PersonRegistrationFormComponent implements OnInit{
 
   ngOnDestroy(): void {
   }
+
+  goForward(stepper: MatStepper){
+    stepper.next();
+}
 
 }

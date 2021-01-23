@@ -1,4 +1,4 @@
-<Form id="person-connection" class="example-full-width" [formGroup]="stepForm">
+<Form id="person-connection" class="example-full-width" [formGroup]="stepForm" contentAndNumberMust>
   <div formArrayName="phones">
   <ng-container *ngFor="let control of phonNumbers.controls; let i=index">
       <!--comment -->
@@ -14,12 +14,19 @@
         <input matInput placeholder="30 445" formControlName="number">
       </mat-form-field>
       <br />
-     <button mat-raised-button (click)="removeFormControl(i)" style="margin: 10px" color="warn">törlés</button>
+     <button mat-raised-button type="button"  (click)="removeFormControl(i)" style="margin: 10px" color="warn">törlés</button>
     <!--/div-->
   </div>
+  <div *ngIf="getPhoneFormGroup(i).errors?.identityRevealed && (getPhoneFormGroup(i).touched || getPhoneFormGroup(i).dirty)" class="cross-validation-error-message alert alert-danger">
+  A mezők csak együtt kitöltve érvényesek!
+</div>
+<!--span class="text-danger" *ngIf="getPhoneFormGroup(i).controls['value'].touched && getPhoneFormGroup(i).controls['value'].hasError('required')">
+  Email/Phone no is required! </span-->
   </ng-container>
 </div>
+
   <br />
-  <button mat-raised-button (click)="addFormControl()" style="margin: 10px">Újkapcsolat</button>
-  <button mat-raised-button matStepperNext>Következő</button>
+  <button mat-raised-button type="button" (click)="addFormControl()" style="margin: 10px">Újkapcsolat</button>
+  <!--button mat-raised-button goForward(stepper)>Következő</button-->
+  <!--button mat-raised-button matStepperNext>Következő</button-->
 </Form>
