@@ -1,0 +1,17 @@
+
+  <ng-container *ngFor="let control of control.controls let i=index">
+    <div [formGroupName]="i" fxLayout="row wrap" fxLayout.xs="column" fxFlexFill fxLayoutAlign="start center" fxLayoutGap="20px">
+      <mat-form-field class="example-full-width">
+        <mat-label>Email cím</mat-label>
+        <input matInput placeholder="email" formControlName="email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+        <mat-error *ngIf="getEmailFormControl(i).get('email')?.hasError('email')">
+          Érvényes email cím megadása kötelező!
+        </mat-error>
+      </mat-form-field>
+      <br />
+     <button mat-raised-button type="button"  (click)="removeEmailFormControl(i)" style="margin: 10px" color="warn">törlés</button>
+    </div>
+  </ng-container>
+  <br />
+  <button mat-raised-button type="button" (click)="addEmailFormControl()" style="margin: 10px">Új cím felvétele</button>
+

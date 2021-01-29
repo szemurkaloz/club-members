@@ -1,0 +1,45 @@
+<div formArrayName="phoneNumbers">
+  <ng-container *ngFor="let control of phoneNumberControls.controls let i=index">
+    <!--comment -->
+    <!--div fxLayoutGap="20px"-->
+    <div [formGroupName]="i" fxLayout="row wrap" fxLayout.xs="column" fxFlexFill fxLayoutAlign="start center"
+      fxLayoutGap="20px" contentAndNumberMust>
+      <mat-form-field class="example-full-width">
+        <mat-label>Kapcsolat neve</mat-label>
+        <input matInput placeholder="mobil" formControlName="comment">
+      </mat-form-field>
+      <!--number-->
+      <mat-form-field class="example-full-width">
+        <mat-label>Leírása</mat-label>
+        <input matInput placeholder="30 445" formControlName="number">
+      </mat-form-field>
+      <br />
+      <button mat-raised-button type="button" (click)="onRemovePhoneRow(i)" style="margin: 10px"
+        color="warn">törlés</button>
+      <!--/div-->
+    </div>
+    <!--div *ngIf="getPhoneFormControl(i).errors?.identityRevealed && (getPhoneFormControl(i).touched || getPhoneFormControl(i).dirty)" class="cross-validation-error-message alert alert-danger">
+      A mezők csak együtt kitöltve érvényesek!
+      <small style="color:red;">{{validation.message}}</small>
+    </div-->
+    <!-- Validation Errors -->
+    <div *ngFor="let validation of validationMessages.phoneNumberNote" style="width: 300px">
+      <div
+        *ngIf="getPhoneFormControl(i).errors?.identityRevealed && (getPhoneFormControl(i).touched || getPhoneFormControl(i).dirty)"
+        class="alert alert-danger" role="alert">
+        <p>{{validation.message}}</p>
+      </div>
+    </div>
+  </ng-container>
+  <!--div>
+    {{phoneNumberControls.value | json}}
+  </divphoneNumberControls.valid && -->
+</div>
+<!--button mat-raised-button color="primary" (click)="confirmDialog()">Confirm</button>
+<br>
+Response is: {{result}}
+
+<br /-->
+<button mat-raised-button type="button" (click)="addPhoneFormControl()" style="margin: 10px">Újkapcsolat</button>
+<!--button mat-raised-button goForward(stepper)>Következő</button-->
+<div>

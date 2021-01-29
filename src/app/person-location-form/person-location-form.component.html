@@ -1,11 +1,13 @@
-<Form id="person-location" class="example-full-width" [formGroup]="stepForm">
-  <div fxLayout="row wrap" fxLayout.xs="column" fxFlexFill fxLayoutAlign="space-evenly start">
+<Form id="person-location" class="example-full-width" [formGroup]="fg">
+  <div formArrayName="residences">
+    <ng-container *ngFor="let control of stepForm.controls; let i=index">
+  <div [formGroupName]="i" fxLayout="row wrap" fxLayout.xs="column" fxFlexFill fxLayoutAlign="space-evenly start">
     <!--zipCode-->
     <mat-form-field class="example-full-width" style="width: 100px">
       <mat-label>Irsz</mat-label>
       <input matInput placeholder="irányító száma" formControlName="zipCode">
     </mat-form-field>
-    <!--place required-->
+    <!--place -->
     <mat-form-field class="example-full-width">
       <mat-label>Helység</mat-label>
       <input matInput placeholder="lakóhelye" formControlName="place" >
@@ -17,7 +19,13 @@
     </mat-form-field>
     <!--stabel-->
     <mat-checkbox class="example-margin" style="margin-top: 25px">Állandó lakhelye!</mat-checkbox>
+    <br />
+    <button mat-raised-button type="button"  (click)="removeFormControl(i)" style="margin: 10px" color="warn">törlés</button>
+  </div>
+
+  </ng-container>
   </div>
   <br />
-    <button mat-raised-button color="primary" matStepperNext (click)="stepSubmitted()">Következő</button>
+  <button mat-raised-button type="button" (click)="addFormControl()" style="margin: 10px">Új lakóhely</button>
+  <button type="submit" mat-raised-button color="primary" matStepperNext (click)="stepSubmitted()">Következő</button>
 </Form>

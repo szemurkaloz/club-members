@@ -1,55 +1,32 @@
-import { contentAndNumberValidator } from './../../core/custom-field-validators';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatStepper, MatVerticalStepper } from '@angular/material/stepper';
-
+import { ControlContainer, FormGroup, FormGroupDirective } from '@angular/forms';
 @Component({
   selector: 'person-connection',
   templateUrl: './person-connection.component.html',
-  styleUrls: ['./person-connection.component.css']
+  styleUrls: ['./person-connection.component.css'],
+  viewProviders: [
+    {
+      provide: ControlContainer,
+      useExisting: FormGroupDirective
+    }
+  ]
 })
 export class PersonConnectionComponent implements OnInit {
   @Input()
   stepForm!: FormGroup;
-  @Input()
-  stepper!: MatVerticalStepper;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fgd: FormGroupDirective) { }
 
   ngOnInit(): void {
-  }
-  get phonNumbers() : FormArray {
-    //console.log("Telefonok" + this.stepForm.value);
-    return this.stepForm.get("phones") as FormArray
+    this.stepForm = this.fgd.form.get('personConnection') as FormGroup;
   }
 
-  addFormControl() {
-    let phoneArray = this.stepForm.controls.phones as FormArray;
-    let arraylen = phoneArray.length;
-
-    let newPhonegroup: FormGroup = this.fb.group({
-      comment: new FormControl(null),
-      number: new FormControl(null)
-    }, { validators: contentAndNumberValidator })
-
-    phoneArray.insert(arraylen, newPhonegroup);
+  public errorHandling = (control: string, error: string) => {
+    return this.stepForm.controls[control].hasError(error);
   }
 
-  removeFormControl(i: number) {
-    let phoneArray = this.stepForm.controls.phones as FormArray;
-    phoneArray.removeAt(i);
+  submitForm() {
+    console.log(this.stepForm.status)
   }
 
-  // get the formgroup under contacts form array
-  getPhoneFormGroup(index: number): FormGroup {
-    let phoneArray = this.stepForm.controls.phones as FormArray;
-    const formGroup = phoneArray.controls[index] as FormGroup;
-    return formGroup;
-  }
-
-
-  /* goForward(stepper: MatStepper){
-    console.log("Matstepper next!!")
-    stepper.next();
-  }*/
 }

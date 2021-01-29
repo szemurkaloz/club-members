@@ -1,38 +1,44 @@
 import { AppComponent } from './../app.component';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, Validators, FormBuilder, ControlContainer, FormGroupDirective, AbstractControl } from '@angular/forms';
 //import { PersonalDefault } from '../personal-default'
 
 @Component({
   selector: 'personal-default-step',
   templateUrl: './personal-default-form.component.html',
   styleUrls: ['./personal-default-form.component.css'],
+  viewProviders: [
+    {
+      provide: ControlContainer,
+      useExisting: FormGroupDirective
+    }
+  ]
 })
 export class PersonalDefaultFormComponent implements OnInit {
 @Input()
   stepForm!: FormGroup;
-  emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
 
-  constructor() {}
+  constructor(private parent: FormGroupDirective) {}
 
 
 
   ngOnInit(): void {
-    //console.log("Stepform value:" + this.personDefaultFrm.controls.value);
+    this.stepForm = this.parent.control.get('personDefault') as FormGroup;
+
+
   }
+  /*
+  getPhoneFormGroup(index: number): FormGroup {
+    return this.control.controls[index] as FormGroup;
+  }*/
 
   stepSubmitted() {
-    //this.stepForm != undefined ? this.stepForm.get('name')?.updateValueAndValidity() : undefined;
+    this.stepForm.get('place')?.updateValueAndValidity();
+    console.log('you submitted value: ', this.stepForm?.value);
   }
 
-  submit() {
-   /* if (!this.registrationMemberForm?.valid) {
-      return;
-    }*/
-    //console.log(this.registrationMemberForm..personalDefaultFormGroup?.value);
-    //console.log(this.personLocationFormGroup?.value);
-  }
+
 
 }
 /*

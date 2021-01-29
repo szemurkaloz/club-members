@@ -9,7 +9,7 @@
 <!--name required-->
   <mat-form-field >
     <mat-label>Neve:</mat-label>
-    <input matInput placeholder="jelentkező neve" formControlName="name" >
+    <input matInput placeholder="jelentkező neve" formControlName="name" required>
     <!--mat-error *ngIf="personDefaultFormGroup.controls.name.touched && personDefaultFormGroup.controls.name.invalid">
           <span *ngIf="personDefaultFormGroup.controls.name.errors?.required">Név megadása kötelező.</span>
           <mat-error *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
@@ -41,7 +41,8 @@
   </mat-form-field>
 </div>
 <br />
-    <button mat-raised-button color="primary" matStepperNext>Következő</button>
+    <button type="submit" mat-raised-button color="primary" matStepperNext (click)="stepSubmitted()">Következő</button>
+  <pre>{{ stepForm.value | json }}</pre>
 </Form>
 <!--AutofillMonitor-->
 <!-- https://material.angular.io/cdk/text-field/overview -->

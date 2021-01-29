@@ -1,32 +1,8 @@
-<Form id="person-connection" class="example-full-width" [formGroup]="stepForm" contentAndNumberMust>
-  <div formArrayName="phones">
-  <ng-container *ngFor="let control of phonNumbers.controls; let i=index">
-      <!--comment -->
-      <!--div  fxLayout="row wrap" fxLayout.xs="column" fxFlexFill fxLayoutAlign="start center" fxLayoutGap="20px"-->
-      <div [formGroupName]="i" fxLayout="row wrap" fxLayout.xs="column" fxFlexFill fxLayoutAlign="start center" fxLayoutGap="20px">
-      <mat-form-field class="example-full-width">
-        <mat-label>Kapcsolat neve</mat-label>
-        <input matInput placeholder="mobil" formControlName="comment">
-      </mat-form-field>
-      <!--number-->
-      <mat-form-field class="example-full-width">
-        <mat-label>Leírása</mat-label>
-        <input matInput placeholder="30 445" formControlName="number">
-      </mat-form-field>
-      <br />
-     <button mat-raised-button type="button"  (click)="removeFormControl(i)" style="margin: 10px" color="warn">törlés</button>
-    <!--/div-->
+<Form id="person-connection" [formGroup]="stepForm" (ngSubmit)="submitForm()" novalidate class="example-full-width">
+  <phone-numbers-form-array></phone-numbers-form-array>
+  <!--email-form-array></email-form-array-->
+  <button mat-raised-button matStepperNext>Következő</button>
+  <div>
+    {{stepForm.value | json}}
   </div>
-  <div *ngIf="getPhoneFormGroup(i).errors?.identityRevealed && (getPhoneFormGroup(i).touched || getPhoneFormGroup(i).dirty)" class="cross-validation-error-message alert alert-danger">
-  A mezők csak együtt kitöltve érvényesek!
-</div>
-<!--span class="text-danger" *ngIf="getPhoneFormGroup(i).controls['value'].touched && getPhoneFormGroup(i).controls['value'].hasError('required')">
-  Email/Phone no is required! </span-->
-  </ng-container>
-</div>
-
-  <br />
-  <button mat-raised-button type="button" (click)="addFormControl()" style="margin: 10px">Újkapcsolat</button>
-  <!--button mat-raised-button goForward(stepper)>Következő</button-->
-  <!--button mat-raised-button matStepperNext>Következő</button-->
 </Form>
