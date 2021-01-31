@@ -1,6 +1,6 @@
 <Form id="person-connection" [formGroup]="stepForm" (ngSubmit)="submitForm()" novalidate class="example-full-width">
   <phone-numbers-form-array></phone-numbers-form-array>
-  <!--email-form-array></email-form-array-->
+  <email-form-array></email-form-array>
   <button mat-raised-button matStepperNext>Következő</button>
   <div>
     {{stepForm.value | json}}

@@ -68,6 +68,8 @@ export class PhoneNumbersFormArrayComponent implements OnInit {
 
   getNewSiblingEnabeled(index: number): boolean {
     let last = this.phoneNumberControls.controls[index] as FormControl;
+    //The array is empty
+    if (last === undefined) return false;
     const comment = last.get('comment');
     const phoneNumber = last.get('number');
     return last.errors !== null ? true :

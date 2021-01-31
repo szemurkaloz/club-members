@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ControlContainer, FormGroupDirective, FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { contentAndNumberValidator } from 'src/app/core/custom-field-validators';
+import { ConfirmDialogModel, ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'email-form-array',
@@ -13,7 +15,7 @@ export class EmailFormArrayComponent implements OnInit {
 
   control!: FormArray;
 
-  constructor(private fgd: FormGroupDirective) { }
+  constructor(private fgd: FormGroupDirective, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.control = this.fgd.control.get('emails') as FormArray;
@@ -23,15 +25,7 @@ export class EmailFormArrayComponent implements OnInit {
   addEmailFormControl() {
     let arraylen = this.control.length;
     //If the last emailControl is empty then exit;
-    let lastControl = this.getEmailFormControl(arraylen-1);
-
-    lastControl.get('email')?.updateValueAndValidity();
-    let mehet = lastControl.errors?.identityRevealed && (lastControl.touched || lastControl.dirty);
-
-    let ertek = lastControl.get('email')?.value;
-    let allapota = lastControl.get('email')?.hasError('email')
-
-    if(lastControl.get('email')?.updateValueAndValidity() === undefined) {return};
+    if(this.canBeAddNewEmail() === true) return;
 
     let newEmailGroup: FormGroup =  new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email])
@@ -40,8 +34,19 @@ export class EmailFormArrayComponent implements OnInit {
     this.control.insert(arraylen, newEmailGroup);
   }
 
-  removeEmailFormControl(i: number) {
-    this.control.removeAt(i);
+  canBeAddNewEmail(): boolean {
+    let lastControl = this.getEmailFormControl(this.control.length-1);
+    //The array is empty
+    if (lastControl === undefined) return false;
+    return lastControl.get('email')?.hasError('email') === true;
+  }
+
+  onRemoveEmailRow(index: number){
+    this.confirmDialog("Törlés megerősítése!", `Az email sor törlése?`, index, this.removeEmailFormControl)
+  }
+
+  removeEmailFormControl(index: number, formArray: FormArray ): void  {
+    formArray.removeAt(index);
   }
 
   // get the formgroup under residences form array
@@ -50,4 +55,50 @@ export class EmailFormArrayComponent implements OnInit {
     return this.control.controls[index] as FormControl;
   }
 
+  /* Handle form errors in Angular 8 */
+  public errorHandling = (index: number, control: string, error: string) => {
+    //this.getEmailFormControl(index).controls[control].hasError(error);
+    return this.getEmailFormControl(index).get('email')?.hasError(error);
+  }
+
+  /* public validationMessages = {
+    'firstName': [
+      { type: 'required', message: 'First Name is required' },
+      { type: 'maxlength', message: 'First Name may only contain 5 characters.' }
+    ],
+    'lastName': [
+      { type: 'required', message: 'Last Name is required' },
+      { type: 'pattern', message: 'Last Name may not be "Smith".' }
+    ],
+    'email': [
+      { type: 'required', message: 'Email is required' },
+      { type: 'email', message: 'Enter a valid email' }
+    ]
+
+    <label>
+    Email:
+    <input type="email" autocomplete="email" formControlName="email" required>
+  </label>
+  <!-- Validation Errors -->
+  <div *ngFor="let validation of validationMessages.email">
+    <div *ngIf="profileForm.get('email').hasError(validation.type) && (profileForm.get('email').dirty || profileForm.get('email').touched)">
+          <small style="color:red;">{{validation.message}}</small>
+    </div>
+  </div>
+  } */
+
+  confirmDialog(caption: string, question: string, index: number, executing: (index: number, formArray: FormArray) => void): void {
+
+    const dialogData = new ConfirmDialogModel(caption, question);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: "400px",
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      //if result true then delete row
+      if(dialogResult) executing(index, this.control);
+    });
+  }
 }
