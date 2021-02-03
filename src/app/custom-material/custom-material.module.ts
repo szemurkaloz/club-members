@@ -12,7 +12,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -30,7 +31,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatNativeDateModule,
     MatStepperModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatChipsModule,
+    MatAutocompleteModule,
   ],
   exports: [
     MatFormFieldModule,
@@ -45,7 +48,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatNativeDateModule,
     MatStepperModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatChipsModule,
+    MatAutocompleteModule,
   ]
 })
 export class CustomMaterialModule { }

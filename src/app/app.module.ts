@@ -18,6 +18,7 @@ import { PhoneNumbersFormArrayComponent } from './components/person-connection/p
 import { CommonModule } from '@angular/common';
 import { CustomMaterialModule } from './custom-material/custom-material.module';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { PersonGroupComponent } from './components/person-group/person-group.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +30,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     EmailFormArrayComponent,
     PhoneNumbersFormArrayComponent,
     ConfirmDialogComponent,
+    PersonGroupComponent
   ],
   imports: [
     BrowserModule,

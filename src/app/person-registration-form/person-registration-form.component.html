@@ -7,6 +7,7 @@
   <mat-vertical-stepper linear #stepper>
     <mat-step [stepControl]="personConnection">
       <ng-template matStepLabel>Elérési lehetőségek</ng-template>
+      <person-group></person-group>
       <person-connection [stepForm]="personConnection"></person-connection>
     </mat-step>
     <mat-step [stepControl]="personDefault">

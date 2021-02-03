@@ -35,7 +35,7 @@ export class PhoneNumbersFormArrayComponent implements OnInit {
     ]*/
   }
 
-  constructor(private fgd: FormGroupDirective, public dialog: MatDialog) { }
+  constructor(private fgd: FormGroupDirective, public dialogRef: MatDialog) { }
 
   ngOnInit(): void {
     this.phoneNumberControls = this.fgd.control.get('phoneNumbers') as FormArray;
@@ -81,13 +81,15 @@ export class PhoneNumbersFormArrayComponent implements OnInit {
 
     const dialogData = new ConfirmDialogModel(caption, question);
 
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    //const dialog = this.dialog.open(component, {minWidth: '90%', disableClose: true, data: dados, position: {top: '4%'}});
+    const dialogRef = this.dialogRef.open(ConfirmDialogComponent, {
       maxWidth: "400px",
       data: dialogData
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       //if result true then delete row
+      //if(dialogResult) this.onRemovePhoneRow(index)
       if(dialogResult) executing({index: index, from: this.phoneNumberControls});
     });
   }

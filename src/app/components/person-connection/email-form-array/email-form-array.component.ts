@@ -4,18 +4,24 @@ import { MatDialog } from '@angular/material/dialog';
 import { contentAndNumberValidator } from 'src/app/core/custom-field-validators';
 import { ConfirmDialogModel, ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
+declare interface RemoveItem {
+  on(event: 'hello', listener: (name: string) => void): this;
+  on(event: string, listener: Function): this;
+}
 @Component({
   selector: 'email-form-array',
   templateUrl: './email-form-array.component.html',
   styleUrls: ['./email-form-array.component.css'],
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
 })
-export class EmailFormArrayComponent implements OnInit {
+export class EmailFormArrayComponent implements OnInit  {
+
   emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
 
   control!: FormArray;
 
-  constructor(private fgd: FormGroupDirective, public dialog: MatDialog) { }
+  constructor(private fgd: FormGroupDirective, public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.control = this.fgd.control.get('emails') as FormArray;
@@ -38,15 +44,15 @@ export class EmailFormArrayComponent implements OnInit {
     let lastControl = this.getEmailFormControl(this.control.length-1);
     //The array is empty
     if (lastControl === undefined) return false;
-    return lastControl.get('email')?.hasError('email') === true;
+    return (lastControl.get('email')?.hasError('email') === true || lastControl.get('email')?.value === null) ? true : false;
   }
 
   onRemoveEmailRow(index: number){
-    this.confirmDialog("Törlés megerősítése!", `Az email sor törlése?`, index, this.removeEmailFormControl)
+    this.confirmDialog("Törlés megerősítése!", `Az email sor törlése?`, index)
   }
 
-  removeEmailFormControl(index: number, formArray: FormArray ): void  {
-    formArray.removeAt(index);
+  removeEmail(index: number ): void  {
+    this.control.removeAt(index);
   }
 
   // get the formgroup under residences form array
@@ -86,8 +92,8 @@ export class EmailFormArrayComponent implements OnInit {
     </div>
   </div>
   } */
-
-  confirmDialog(caption: string, question: string, index: number, executing: (index: number, formArray: FormArray) => void): void {
+//, executing: (index: number, formArray: FormArray => void): void
+  confirmDialog(caption: string, question: string, index: number) {
 
     const dialogData = new ConfirmDialogModel(caption, question);
 
@@ -96,9 +102,10 @@ export class EmailFormArrayComponent implements OnInit {
       data: dialogData
     });
 
-    dialogRef.afterClosed().subscribe(dialogResult => {
+   dialogRef.afterClosed().subscribe(dialogResult => {
       //if result true then delete row
-      if(dialogResult) executing(index, this.control);
+      //if(dialogResult) executing(index, this.control);
+      if(dialogResult) this.removeEmail(index);
     });
   }
 }
