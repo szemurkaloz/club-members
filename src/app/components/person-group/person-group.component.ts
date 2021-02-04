@@ -86,10 +86,14 @@ export class PersonGroupComponent implements OnInit {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.marks.push(event.option.viewValue);
+    //if the selected value exist in array
+    if(this.marks.indexOf(event.option.viewValue) < 0){
+      this.marks.push(event.option.viewValue);
+      this.personGroups?.setValue(this.marks.slice());
+    }
     this.markInput.nativeElement.value = '';
     this.markCtrl.setValue(null);
-    this.personGroups?.setValue(this.marks.slice());
+
   }
 }
 
