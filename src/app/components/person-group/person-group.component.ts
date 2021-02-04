@@ -1,10 +1,10 @@
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/internal/operators/map';
+import { map } from 'rxjs/internal/operators';
 import { startWith } from 'rxjs/internal/operators/startWith';
 
 @Component({
@@ -13,38 +13,38 @@ import { startWith } from 'rxjs/internal/operators/startWith';
   styleUrls: ['./person-group.component.css']
 })
 export class PersonGroupComponent implements OnInit {
-//"group": ["Felnőtt","Versenyző"],
-//"comment": "Valami megjegyzés",
+  //"group": ["Felnőtt","Versenyző"],
+  //"comment": "Valami megjegyzés",
 
-visible: boolean = true;
-selectable: boolean = true;
-removable: boolean = true;
-addOnBlur: boolean = false;
+  visible: boolean = true;
+  selectable: boolean = true;
+  removable: boolean = true;
+  addOnBlur: boolean = false;
 
-separatorKeysCodes = [ENTER, COMMA];
+  separatorKeysCodes = [ENTER, COMMA];
 
-fruitCtrl = new FormControl();
+  markCtrl = new FormControl();
 
-filteredFruits: Observable<any[]>;
+  filteredMarks!: Observable<any[]>;
 
-fruits = [
-  'Felnőtt',
-];
+  marks = [
+    'Felnőtt',
+  ];
 
-allFruits = [
-  'Felnőtt',
-  'Versenyző',
-  'Gyermek',
-  'Ifjúsági',
-  'Támogató'
-];
+  allGroupType = [
+    'Felnőtt',
+    'Versenyző',
+    'Gyermek',
+    'Ifjúsági',
+    'Támogató'
+  ];
 
-@ViewChild('fruitInput') fruitInput!: ElementRef;
+  @ViewChild('markInput') markInput!: ElementRef;
 
   constructor() {
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+    this.filteredMarks = this.markCtrl.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => fruit ? this.filter(fruit) : this.allFruits.slice()));
+      map((mark: string | null) => mark ? this.filter(mark) : this.allGroupType.slice()));
   }
 
   ngOnInit(): void {
@@ -54,9 +54,9 @@ allFruits = [
     const input = event.input;
     const value = event.value;
 
-    // Add our fruit
+    // Add our mark
     if ((value || '').trim()) {
-      this.fruits.push(value.trim());
+      this.marks.push(value.trim());
     }
 
     // Reset the input value
@@ -64,26 +64,26 @@ allFruits = [
       input.value = '';
     }
 
-    this.fruitCtrl.setValue(null);
+    this.markCtrl.setValue(null);
   }
 
-  remove(fruit: any): void {
-    const index = this.fruits.indexOf(fruit);
+  remove(mark: any): void {
+    const index = this.marks.indexOf(mark);
 
     if (index >= 0) {
-      this.fruits.splice(index, 1);
+      this.marks.splice(index, 1);
     }
   }
 
   filter(name: string) {
-    return this.allFruits.filter(fruit =>
-        fruit.toLowerCase().indexOf(name.toLowerCase()) === 0);
+    return this.allGroupType.filter(mark =>
+      mark.toLowerCase().indexOf(name.toLowerCase()) === 0);
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
+    this.marks.push(event.option.viewValue);
+    this.markInput.nativeElement.value = '';
+    this.markCtrl.setValue(null);
   }
 }
 
