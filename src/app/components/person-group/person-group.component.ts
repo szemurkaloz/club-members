@@ -59,8 +59,11 @@ export class PersonGroupComponent implements OnInit {
 
     // Add our mark
     if ((value || '').trim()) {
-      this.marks.push(value.trim());
-      this.personGroups?.setValue(this.marks.slice());
+      //if the selected value not exist in array
+      if(this.marks.indexOf(value) < 0){
+        this.marks.push(value.trim());
+        this.personGroups?.setValue(this.marks.slice());
+      }
     }
 
     // Reset the input value
@@ -86,7 +89,7 @@ export class PersonGroupComponent implements OnInit {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    //if the selected value exist in array
+    //if the selected value not exist in array
     if(this.marks.indexOf(event.option.viewValue) < 0){
       this.marks.push(event.option.viewValue);
       this.personGroups?.setValue(this.marks.slice());
