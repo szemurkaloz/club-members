@@ -33,6 +33,7 @@ export class PersonLocationFormComponent implements OnInit {
   stepSubmitted() {
     for (let index = 0; index < this.stepForm.length; index++) {
       const element = this.stepForm.controls[index];
+      element.get('place')?.markAsTouched();
       element.get('place')?.updateValueAndValidity();
     }
      //this.stepForm.get('place')?.updateValueAndValidity() ;

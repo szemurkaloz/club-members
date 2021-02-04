@@ -52,8 +52,11 @@ export class PersonRegistrationFormComponent implements OnInit {
           email: new FormControl(null, [Validators.required, Validators.email])
         })
         ])
+      }),
+      personOther: fb.group({
+        groups: new FormControl([]),
+        comment: new FormControl(null),
       })
-
     });
   }
 
@@ -68,8 +71,12 @@ export class PersonRegistrationFormComponent implements OnInit {
   }
 
   onSubmit() {
+//step1: any, step2: any, step3: any
+    //console.log('you submitted value: ', step1, step2, step3);
+  }
 
-    console.log('you submitted value: ', this.newMemberForm?.value);
+  get personOther() : FormGroup {
+    return this.newMemberForm.get("personOther") as FormGroup
   }
 
   get personDefault() : FormGroup {

@@ -34,8 +34,9 @@ export class PersonalDefaultFormComponent implements OnInit {
   }*/
 
   stepSubmitted() {
+    this.stepForm.get('place')?.markAsTouched();
     this.stepForm.get('place')?.updateValueAndValidity();
-    console.log('you submitted value: ', this.stepForm?.value);
+    console.log('you personalDefault submitted value: ', this.stepForm?.value);
   }
 
 

@@ -25,7 +25,9 @@ export class PersonConnectionComponent implements OnInit {
     return this.stepForm.controls[control].hasError(error);
   }
 
-  submitForm() {
+  onSubmit() {
+    /* this.stepForm.get('place')?.markAsTouched();
+    this.stepForm.get('place')?.updateValueAndValidity(); */
     console.log(this.stepForm.status)
   }
 

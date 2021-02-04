@@ -19,6 +19,7 @@ import { CommonModule } from '@angular/common';
 import { CustomMaterialModule } from './custom-material/custom-material.module';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { PersonGroupComponent } from './components/person-group/person-group.component';
+import { PersonOtherFormComponent } from './components/person-other-form/person-other-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,8 @@ import { PersonGroupComponent } from './components/person-group/person-group.com
     EmailFormArrayComponent,
     PhoneNumbersFormArrayComponent,
     ConfirmDialogComponent,
-    PersonGroupComponent
+    PersonGroupComponent,
+    PersonOtherFormComponent
   ],
   imports: [
     BrowserModule,

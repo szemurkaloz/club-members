@@ -1,4 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Input } from '@angular/core';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -23,7 +24,8 @@ export class PersonGroupComponent implements OnInit {
 
   separatorKeysCodes = [ENTER, COMMA];
 
-  markCtrl = new FormControl();
+  markCtrl = new FormControl;
+  @Input() personGroups!: FormControl;
 
   filteredMarks!: Observable<any[]>;
 
@@ -48,6 +50,7 @@ export class PersonGroupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.personGroups?.setValue(this.marks.slice())
   }
 
   add(event: MatChipInputEvent): void {
@@ -57,6 +60,7 @@ export class PersonGroupComponent implements OnInit {
     // Add our mark
     if ((value || '').trim()) {
       this.marks.push(value.trim());
+      this.personGroups?.setValue(this.marks.slice());
     }
 
     // Reset the input value
@@ -72,6 +76,7 @@ export class PersonGroupComponent implements OnInit {
 
     if (index >= 0) {
       this.marks.splice(index, 1);
+      this.personGroups?.setValue(this.marks.slice());
     }
   }
 
@@ -84,6 +89,7 @@ export class PersonGroupComponent implements OnInit {
     this.marks.push(event.option.viewValue);
     this.markInput.nativeElement.value = '';
     this.markCtrl.setValue(null);
+    this.personGroups?.setValue(this.marks.slice());
   }
 }
 

@@ -1,0 +1,17 @@
+<Form id="person-default" [formGroup]="stepForm">
+  <div fxLayout="row wrap"
+  fxLayout.xs="column"
+  fxLayoutGap="6px"
+  fxFlexFill
+  fxLayoutAlign="space-evenly start">
+  <person-group [personGroups]="personGroups"></person-group>
+  <!--comment-->
+  <mat-form-field class="example-full-width" >
+    <mat-label>Megjegyzés:</mat-label>
+    <input matInput placeholder="" formControlName="comment">
+  </mat-form-field>
+  </div>
+  <br />
+    <button type="submit" mat-raised-button color="primary" matStepperNext (click)="onSubmit()">Következő</button>
+  <pre>{{ stepForm.value | json }}</pre>
+</Form>
