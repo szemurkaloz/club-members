@@ -2,7 +2,7 @@ import { CdkStepper, STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Component, ElementRef, forwardRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { contentAndNumberValidator } from '../core/custom-field-validators';
+import { contentAndNumberValidator } from '../../core/custom-field-validators';
 //import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 /*
@@ -23,6 +23,8 @@ https://www.positronx.io/angular-8-reactive-forms-validation-with-angular-materi
 export class PersonRegistrationFormComponent implements OnInit {
   newMemberForm!: FormGroup;
   personRegistation!: FormGroup;
+  // racings is not required but need validators when enabeled
+  isOptional = false;
 
   constructor(private fb: FormBuilder) {
     this.newMemberForm = fb.group({
@@ -56,7 +58,30 @@ export class PersonRegistrationFormComponent implements OnInit {
       personOther: fb.group({
         groups: new FormControl([]),
         comment: new FormControl(null),
-      })
+      }),
+      branchType: fb.group({
+        branches: this.fb.array([this.fb.group({
+          clubType: new FormControl(null, [Validators.required]),
+          clubSortName: new FormControl(null, [Validators.required]),
+          beltExams: this.fb.array([this.fb.group({
+            beltGrade: new FormControl(null, [Validators.required]),
+            examDate: new FormControl(null, [Validators.required])
+          })
+          ]),
+        })
+        ]),
+
+        racings: this.fb.array([this.fb.group({
+          name: new FormControl(null, [Validators.required]),
+          country: new FormControl(null, [Validators.required]),
+          location: new FormControl(null, [Validators.required]),
+          gradation: new FormControl(null, [Validators.required]),
+          racingType: new FormControl(null, [Validators.required]),
+          date: new FormControl(null, [Validators.required]),
+          comment: new FormControl(null)
+        })
+        ]),
+      }),
     });
   }
 
@@ -75,10 +100,6 @@ export class PersonRegistrationFormComponent implements OnInit {
     //console.log('you submitted value: ', step1, step2, step3);
   }
 
-  get personOther() : FormGroup {
-    return this.newMemberForm.get("personOther") as FormGroup
-  }
-
   get personDefault() : FormGroup {
     return this.newMemberForm.get("personDefault") as FormGroup
   }
@@ -89,5 +110,13 @@ export class PersonRegistrationFormComponent implements OnInit {
 
   get personConnection() : FormGroup {
     return this.newMemberForm.get("personConnection") as FormGroup
+  }
+
+  get personOther() : FormGroup {
+    return this.newMemberForm.get("personOther") as FormGroup
+  }
+
+  get branchType() : FormGroup {
+    return this.newMemberForm.get("branchType") as FormGroup
   }
 }

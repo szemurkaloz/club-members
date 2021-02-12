@@ -1,0 +1,19 @@
+<Form id="person-branch-type-form" [formGroup]="fg" class="example-full-width">
+  <div formArrayName="branches">
+    <ng-container *ngFor="let control of stepForm.controls; let i=index">
+      <div [formGroupName]="i" fxLayout="row wrap" fxLayout.xs="column" fxFlexFill fxLayoutAlign="space-evenly start">
+        <!--clubType -->
+        <club-type [myControl]="getClubTypeControl(i)"></club-type>
+        <!--clubType-->
+        <club-sort-name [myControl]="getClubSortNameControl(i)"></club-sort-name>
+
+        <br />
+    <button mat-raised-button type="button"  (click)="removeFormArrayItem(i)" style="margin: 10px" color="warn">törlés</button>
+      </div>
+    </ng-container>
+  </div>
+  <br />
+  <button mat-raised-button type="button" (click)="addFormArrayItem()" style="margin: 10px">Új szakosztály</button>
+  <button type="submit" mat-raised-button color="primary" matStepperNext (click)="onSubmit()">Következő</button>
+  <pre>{{ stepForm.value | json }}</pre>
+</Form>

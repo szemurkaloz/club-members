@@ -18,14 +18,14 @@
       <input matInput placeholder="utca házszám" formControlName="street">
     </mat-form-field>
     <!--stabel-->
-    <mat-checkbox class="example-margin" style="margin-top: 25px">Állandó lakhelye!</mat-checkbox>
+    <mat-checkbox class="example-margin" style="margin-top: 25px">Állandó lakhely!</mat-checkbox>
     <br />
-    <button mat-raised-button type="button"  (click)="removeFormControl(i)" style="margin: 10px" color="warn">törlés</button>
+    <button mat-raised-button type="button"  (click)="removeFormArrayItem(i)" style="margin: 10px" color="warn">törlés</button>
   </div>
 
   </ng-container>
   </div>
   <br />
-  <button mat-raised-button type="button" (click)="addFormControl()" style="margin: 10px">Új lakóhely</button>
+  <button mat-raised-button type="button" (click)="addFormArrayItem()" style="margin: 10px">Új lakóhely</button>
   <button type="submit" mat-raised-button color="primary" matStepperNext (click)="stepSubmitted()">Következő</button>
 </Form>

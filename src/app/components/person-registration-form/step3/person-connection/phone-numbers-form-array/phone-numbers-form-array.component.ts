@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ControlContainer, FormArray, FormControl, FormGroup, FormGroupDirective } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { contentAndNumberValidator } from 'src/app/core/custom-field-validators';
-import { ConfirmDialogModel, ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogModel, ConfirmDialogComponent } from '../../../../confirm-dialog/confirm-dialog.component';
 
 interface IremoveParams {
   index: number,

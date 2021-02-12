@@ -1,4 +1,4 @@
-import { AppComponent } from './../app.component';
+import { AppComponent } from '../../../../app.component';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators, FormBuilder, ControlContainer, FormGroupDirective, AbstractControl } from '@angular/forms';

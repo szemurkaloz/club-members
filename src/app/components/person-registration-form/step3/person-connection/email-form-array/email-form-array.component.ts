@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ControlContainer, FormGroupDirective, FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { contentAndNumberValidator } from 'src/app/core/custom-field-validators';
-import { ConfirmDialogModel, ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogModel, ConfirmDialogComponent } from '../../../../confirm-dialog/confirm-dialog.component';
 
 declare interface RemoveItem {
   on(event: 'hello', listener: (name: string) => void): this;

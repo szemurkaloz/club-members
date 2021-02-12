@@ -1,0 +1,16 @@
+<!--clubSortName-->
+<mat-form-field class="example-full-width">
+  <mat-label>Klub neve:</mat-label>
+  <input type="text"
+         placeholder="Válassz egyet!"
+         aria-label="Number"
+         matInput
+         [formControl]="myControl"
+         [matAutocomplete]="auto">
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+      {{option.name}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+

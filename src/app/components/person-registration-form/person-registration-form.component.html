@@ -5,24 +5,30 @@
 <!--[stepForm]="personDefault"-->
 <div id="registration" class="conatiner col-md-12">
   <mat-vertical-stepper linear #stepper>
-    <mat-step [stepControl]="personOther">
-      <ng-template matStepLabel>Egyéb adatok</ng-template>
-      <person-other-form [stepForm]="personOther"></person-other-form>
-    </mat-step>
-    <mat-step [stepControl]="personDefault">
+    <!--mat-step id="step5" [stepControl]="branchType">
+      <ng-template matStepLabel>Egyesületi adatok</ng-template>
+      <person-branch-type-form></person-branch-type-form>
+    </mat-step-->
+    <mat-step id="step1" [stepControl]="personDefault">
       <ng-template matStepLabel>személyi adatok</ng-template>
       <personal-default-step></personal-default-step>
     </mat-step>
-    <mat-step [stepControl]="personLocation">
+    <mat-step id="step2" [stepControl]="personLocation">
       <ng-template matStepLabel>Lakóhely adatok</ng-template>
       <person-location-step></person-location-step>
     </mat-step>
-    <mat-step [stepControl]="personConnection">
+    <mat-step id="step3" [stepControl]="personConnection">
       <ng-template matStepLabel>Elérési lehetőségek</ng-template>
-      <person-group></person-group>
-      <person-connection [stepForm]="personConnection"></person-connection>
+      <person-connection></person-connection>
     </mat-step>
-
+    <mat-step id="step4" [stepControl]="personOther">
+      <ng-template matStepLabel>Egyéb adatok</ng-template>
+      <person-other-form></person-other-form>
+    </mat-step>
+    <mat-step id="step5" [stepControl]="branchType">
+      <ng-template matStepLabel>Egyesület választás</ng-template>
+      <person-branch-type-form></person-branch-type-form>
+    </mat-step>
     <mat-step [stepControl]="personRegistation">
       <ng-template matStepLabel>Felvétel megerősítése</ng-template>
       <!--app-registration-step3 [regForm]="registrationMemberForm"></app-registration-step3-->

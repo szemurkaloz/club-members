@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { contentAndNumberValidator } from '../core/custom-field-validators';
 
 
 @Component({
@@ -39,7 +38,7 @@ export class PersonLocationFormComponent implements OnInit {
      //this.stepForm.get('place')?.updateValueAndValidity() ;
   }
 
-  addFormControl() {
+  addFormArrayItem() {
     let arraylen = this.stepForm.length;
 
     let newResidencesGroup: FormGroup = this.fb.group({
@@ -51,7 +50,7 @@ export class PersonLocationFormComponent implements OnInit {
     this.stepForm.insert(arraylen, newResidencesGroup);
   }
 
-  removeFormControl(i: number) {
+  removeFormArrayItem(i: number) {
     this.stepForm.removeAt(i);
   }
 
